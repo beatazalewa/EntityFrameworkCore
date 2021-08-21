@@ -1,5 +1,6 @@
 ﻿using EntityFrameworkCore.Introduction.Domain;
 using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -65,9 +66,10 @@ namespace EntityFrameworkCore.Introduction
             }
         }
 
+        [Fact]
         public async Task EagerLoading()
         {
-            using (var context = new MovieContext(true))
+            using (var context = new MovieContext())
             {
                 var person = new Person { Id = 1, FirstName = "James", LastName = "Cameron" };
                 var genre1 = new Genre { Id = 1, Name = "Dramat" };
@@ -79,6 +81,32 @@ namespace EntityFrameworkCore.Introduction
                 await context.AddAsync(movie2);
                 await context.AddAsync(movie3);
                 await context.SaveChangesAsync();
+            }
+            
+
+            using (var context = new MovieContext())
+            {
+                var movie = await context.Movies
+                    .Include(e => e.Genre)
+                    .Include(e => e.Director)
+                    .Where(e => e.Id == 1)
+                    .SingleOrDefaultAsync();
+
+                movie.Director.LastName.Should().Be("Cameron");
+                movie.Genre.Name.Should().Be("Dramat");
+
+            }
+
+            using (var context = new MovieContext())
+            {
+                var person = await context.People
+                    .Include(e => e.Movies)
+                    .ThenInclude(e => e.Genre)
+                    .Where(e => e.Id == 1)
+                    .SingleOrDefaultAsync();
+
+                person.Movies.Should().NotBeNullOrEmpty();
+                person.Movies.Should().HaveCount(3);
             }
         }
     }
