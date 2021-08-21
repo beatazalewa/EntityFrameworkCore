@@ -73,5 +73,55 @@ namespace EntityFrameworkCore._01_SqlConfiguration
                 person.LastName.Should().Be("Scott");
             }
         }
+
+        [Fact]
+        public async Task Delete()
+        {
+            using (var context = new MovieContext())
+            {
+                var person = new Person { FirstName = "John", LastName = "McTiernan" };
+
+                await context.People.AddAsync(person);
+                await context.SaveChangesAsync();
+            }
+
+            using (var context = new MovieContext())
+            {
+                var person = await context.People.FindAsync(1);
+                context.People.Remove(person);
+                await context.SaveChangesAsync();
+            }
+
+            using (var context = new MovieContext())
+            {
+                var person = await context.People.FindAsync(1);
+                person.Should().BeNull();
+            }
+        }
+
+        [Fact]
+        public async Task GetList()
+        {
+            using (var context = new MovieContext())
+            {
+                await context.People.AddAsync(new Person { FirstName = "John", LastName = "McTiernan" });
+                await context.People.AddAsync(new Person {  FirstName = "James", LastName = "Cameron" });
+                await context.People.AddAsync(new Person { FirstName = "Ridley", LastName = "Scott" });
+                await context.People.AddAsync(new Person { FirstName = "Luc", LastName = "Besson" });
+                await context.SaveChangesAsync();
+            }
+
+            using (var context = new MovieContext())
+            {
+                var people = await context.People.ToArrayAsync();
+                people.Should().NotBeNullOrEmpty();
+                people.Should().HaveCount(4);
+            }
+
+            using (var context = new MovieContext())
+            {
+                var people = await context.People.ToArrayAsync();
+            }
+        }
     }
 }
