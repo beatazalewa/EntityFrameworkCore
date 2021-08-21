@@ -44,5 +44,34 @@ namespace EntityFrameworkCore._01_SqlConfiguration
                 person2.LastName.Should().Be("Cameron");
             }
         }
+
+        [Fact]
+        public async Task Update()
+        {
+            using (var context = new MovieContext())
+            {
+                var person = new Person {FirstName = "John", LastName = "McTiernan" };
+
+               await context.People.AddAsync(person);
+                await context.SaveChangesAsync();
+            }
+
+            using (var context = new MovieContext())
+            {
+                var person = await context.People.FindAsync(1);
+                person.FirstName = "Ridley";
+                person.LastName = "Scott";
+                await context.SaveChangesAsync();
+            }
+
+            using (var context = new MovieContext())
+            {
+                var person = await context.People.FindAsync(1);
+                person.Should().NotBeNull();
+                person.Id.Should().Be(1);
+                person.FirstName.Should().Be("Ridley");
+                person.LastName.Should().Be("Scott");
+            }
+        }
     }
 }
