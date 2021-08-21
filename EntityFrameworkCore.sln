@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityFrameworkCore.Introdu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkCore.01_SqlConfiguration", "EntityFrameworkCore.01_SqlConfiguration\EntityFrameworkCore.01_SqlConfiguration.csproj", "{9F33004D-C6F3-4ECF-8B64-6C0D0B3EB3A5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkCore.02_Migrations", "EntityFrameworkCore.02_Migrations\EntityFrameworkCore.02_Migrations.csproj", "{E11D877A-A94F-49FC-BE94-D47FEB459D6A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{9F33004D-C6F3-4ECF-8B64-6C0D0B3EB3A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F33004D-C6F3-4ECF-8B64-6C0D0B3EB3A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F33004D-C6F3-4ECF-8B64-6C0D0B3EB3A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E11D877A-A94F-49FC-BE94-D47FEB459D6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E11D877A-A94F-49FC-BE94-D47FEB459D6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E11D877A-A94F-49FC-BE94-D47FEB459D6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E11D877A-A94F-49FC-BE94-D47FEB459D6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
