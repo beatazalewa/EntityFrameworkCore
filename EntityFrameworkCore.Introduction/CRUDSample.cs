@@ -68,5 +68,30 @@ namespace EntityFrameworkCore.Introduction
                 person.LastName.Should().Be("Scott");
             }
         }
+
+        [Fact]
+        public async Task Delete()
+        {
+            using (var context = new MovieContext())
+            {
+                var person = new Person { Id = 1, FirstName = "John", LastName = "McTiernan" };
+
+                await context.People.AddAsync(person);
+                await context.SaveChangesAsync();
+            }
+
+            using (var context = new MovieContext())
+            {
+                var person = await context.People.FindAsync(1);
+                context.People.Remove(person);
+                await context.SaveChangesAsync();
+            }
+
+            using (var context = new MovieContext())
+            {
+                var person = await context.People.FindAsync(1);
+                person.Should().BeNull();
+            }
+        }
     }
 }
