@@ -10,6 +10,7 @@ namespace EntityFrameworkCore._02_Migrations.Domain
     {
         public int Id { get; set; }
         public string Title { get; set; }
+        public int? YearOfProduction { get; set; }
         public virtual Genre Genre { get; set; } //one
         public virtual Person Director { get; set; } //one
     }
