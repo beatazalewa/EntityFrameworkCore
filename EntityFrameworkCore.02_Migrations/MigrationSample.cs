@@ -24,8 +24,8 @@ namespace EntityFrameworkCore._02_Migrations
                 var person = new Person { FirstName = "James", LastName = "Cameron" };
                 var genre1 = new Genre { Name = "Dramat" };
                 var genre2 = new Genre { Name = "Akcja" };
-                var movie1 = new Movie { Title = "Titanic", Director = person, Genre = genre1, YearOfProduction = 1987 };
-                var movie2 = new Movie { Title = "Obcy 2", Director = person, Genre = genre2, YearOfProduction = 1990 };
+                var movie1 = new Movie { Title = "Titanic", Director = person, Genre = genre1, YearOfProduction = 1987, Length = 2 };
+                var movie2 = new Movie { Title = "Obcy 2", Director = person, Genre = genre2, YearOfProduction = 1990, Length = 3};
                 var movie3 = new Movie { Title = "Terminator", Director = person, Genre = genre2, YearOfProduction = 1993 };
                 await context.AddAsync(movie1);
                 await context.AddAsync(movie2);
