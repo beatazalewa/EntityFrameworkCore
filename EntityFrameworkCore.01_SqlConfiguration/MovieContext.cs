@@ -18,7 +18,7 @@ namespace EntityFrameworkCore._01_SqlConfiguration
         {
             base.OnConfiguring(optionsBuilder);
             optionsBuilder.UseLazyLoadingProxies()
-                .UseSqlServer("Server=LAPTOP-ZALNET\\SQLEXPRESS;Database=EFCore;TrustedConnection=True;MultipleActiveResultSets=True;");
+                .UseSqlServer("Server=LAPTOP-ZALNET\\SQLEXPRESS;Database=EFCore;Trusted_Connection=True;MultipleActiveResultSets=True;");
             //.UseInMemoryDatabase("EFCore.db");
         }
     }
