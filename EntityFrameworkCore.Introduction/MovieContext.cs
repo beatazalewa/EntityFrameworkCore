@@ -11,6 +11,10 @@ namespace EntityFrameworkCore.Introduction
     public class MovieContext : DbContext
     {
         private readonly bool _useLazyLoading;
+        public MovieContext()
+        {
+
+        }
         public MovieContext(bool useLazyLoading)
         {
             _useLazyLoading = useLazyLoading;

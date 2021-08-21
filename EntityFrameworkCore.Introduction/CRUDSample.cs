@@ -43,7 +43,7 @@ namespace EntityFrameworkCore.Introduction
         [Fact]
         public async Task Update()
         {
-            using (var context = new MovieContext(true))
+            using (var context = new MovieContext())
             {
                 var person = new Person { Id = 1, FirstName = "John", LastName = "McTiernan" };
 
@@ -51,15 +51,15 @@ namespace EntityFrameworkCore.Introduction
                 await context.SaveChangesAsync();
             }
 
-            using (var context = new MovieContext(true))
+            using (var context = new MovieContext())
             {
                 var person = await context.People.FindAsync(1);
-                person.FirstName.Should().Be("Ridley");
-                person.LastName.Should().Be("Scott");
+                person.FirstName = "Ridley";
+                person.LastName = "Scott";
                 await context.SaveChangesAsync();
             }
 
-            using (var context = new MovieContext(true))
+            using (var context = new MovieContext())
             {
                 var person = await context.People.FindAsync(1);
                 person.Should().NotBeNull();
