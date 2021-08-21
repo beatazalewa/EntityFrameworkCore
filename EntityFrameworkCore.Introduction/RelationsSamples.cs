@@ -1,4 +1,5 @@
 ﻿using EntityFrameworkCore.Introduction.Domain;
+using FluentAssertions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,33 @@ namespace EntityFrameworkCore.Introduction
                 await context.AddAsync(movie2);
                 await context.AddAsync(movie3);
                 await context.SaveChangesAsync();
+            }
+
+            //sprawdzamy czy gatunek "Akcja" został dodany
+            using (var context = new MovieContext(true))
+            {
+                var genre = await context.Genres.FindAsync(2);
+
+                genre.Should().NotBeNull();
+                genre.Id.Should().Be(2);
+                genre.Name.Should().Be("Akcja");
+            }
+
+            using (var context = new MovieContext(true))
+            {
+                var movie = await context.Movies.FindAsync(1);
+
+                movie.Director.LastName.Should().NotBeNull();
+                movie.Director.LastName.Should().Be("Cameron");
+                movie.Genre.Name.Should().Be("Dramat");
+            }
+
+            using (var context = new MovieContext(true))
+            {
+                var person = await context.People.FindAsync(1);
+
+                person.Movies.Should().NotBeNullOrEmpty();
+                person.Movies.Should().HaveCount(3);
             }
         }
     }
