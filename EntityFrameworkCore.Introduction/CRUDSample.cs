@@ -1,5 +1,6 @@
 using EntityFrameworkCore.Introduction.Domain;
 using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
 using Xunit;
@@ -91,6 +92,31 @@ namespace EntityFrameworkCore.Introduction
             {
                 var person = await context.People.FindAsync(1);
                 person.Should().BeNull();
+            }
+        }
+
+        [Fact]
+        public async Task GetList()
+        {
+            using (var context = new MovieContext(true))
+            {
+                await context.People.AddAsync(new Person { Id = 1, FirstName = "John", LastName = "McTiernan" });
+                await context.People.AddAsync(new Person { Id = 2, FirstName = "James", LastName = "Cameron" });
+                await context.People.AddAsync(new Person { Id = 3, FirstName = "Ridley", LastName = "Scott" });
+                await context.People.AddAsync(new Person { Id = 4, FirstName = "Luc", LastName = "Besson" });
+                await context.SaveChangesAsync();
+            }
+
+            using (var context = new MovieContext(true))
+            {
+                var people = await context.People.ToArrayAsync();
+                people.Should().NotBeNullOrEmpty();
+                people.Should().HaveCount(4);
+            }
+
+            using (var context = new MovieContext(true))
+            {
+                var people = await context.People.ToArrayAsync();
             }
         }
     }
